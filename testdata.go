@@ -20,23 +20,33 @@ var tempDir string
 func Setup() {
 	var err error
 	if tempDir == "" {
-		if tempDir, err = os.MkdirTemp("", "test-*"); err != nil {
+		if tempDir, err = os.MkdirTemp("", "testdata-*"); err != nil {
 			panic(err)
 		}
 
-		cpDir("./testdata", tempDir)
+		wd, err := os.Getwd()
+		if err != nil {
+			panic(err)
+		}
+
+		cpDir(filepath.Join(wd, "testdata"), tempDir)
 	}
 }
 
 // returns you absolute path to given path in temporary directory.
 func Abs(path string) string {
-	return filepath.Join(tempDir, path)
+	return filepath.Join(Pwd(), path)
 }
 
 // Print working dir. In this case it will print root of
 // temp directory
 func Pwd() string {
-	return filepath.Abs(tempDir)
+	pwd, err := filepath.Abs(tempDir)
+	if err != nil {
+		return tempDir
+	} else {
+		return pwd
+	}
 }
 
 // compare content o files, function returns true if they're
