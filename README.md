@@ -12,6 +12,9 @@ for every test run.
 
 ## Example
 
+
+### Basic usage
+
 Let's assume we have `helloworld_test.go` and `testdata`, where is `helloworld.txt`. 
 The unit test will load the text from file, append new text and save it. 
 
@@ -37,3 +40,23 @@ func Test_HelloWorld(t *testing.T) {
 The above example is example of idempotent file test. First, the `Setup()` will create
 copy of your `testdata` folder in $TMPDIR. The `Abs()` function will return you
 absolute path to `hellowold.txt` file in $TMPDIR.
+
+
+### Get file in tests without go:embed
+
+Another common problem with tests with files is you cannot use `go embed`
+direcly in your test.
+
+You can use ReadAsXXXX() functions for loading files as string etc. This 
+function suppose to not fail. If there is problem with file, function will 
+give empty string/byte array.
+
+```
+func Test_HelloWorld(t *testing.T) {
+   testdata.Setup()
+
+   var text string = testdata.ReadAsStr("helloworld.txt")
+
+   ...
+}
+```

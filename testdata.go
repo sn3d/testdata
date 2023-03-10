@@ -34,8 +34,9 @@ func Setup() {
 }
 
 // returns you absolute path to given path in temporary directory.
-func Abs(path string) string {
-	return filepath.Join(Pwd(), path)
+func Abs(path ...string) string {
+	absPath := append([]string{Pwd()}, path...)
+	return filepath.Join(absPath...)
 }
 
 // Print working dir. In this case it will print root of
@@ -86,6 +87,23 @@ func CompareFiles(a, b string) bool {
 	}
 
 	return true
+}
+
+// returns you file body as []byte. If file cannot be read or
+// it doesn't exits, then this function gives you empty byte array
+func Read(file ...string) []byte {
+	content, err := ioutil.ReadFile(Abs(file...))
+	if err != nil {
+		return []byte{}
+	} else {
+		return content
+	}
+}
+
+// returns you file body as string. If file cannot be read or
+// it doesn't exits, then this function gives you empty string
+func ReadAsStr(file ...string) string {
+	return string(Read(file...))
 }
 
 // copy a single file from src to dst.
