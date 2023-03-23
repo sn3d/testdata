@@ -7,6 +7,10 @@ Good practice is putting all files needed for testing into `testdata` folder.
 That's fine if you need to read files and you're not modify it. But I have tests,
 they're mutating files. I need some way how to ensure idempotency of tests.
 
+Another common problem with tests with files is you cannot use `go embed`
+direcly in your test. Library offers you `ReadStr()`, `ReadYAML()` and `ReadJSON` 
+functions. You can use them and avoid `go embed` hacking in your tests.
+
 This framework creates copy of your `testdata` folder in your $TEMPDIR, 
 for every test run. 
 
@@ -42,10 +46,7 @@ copy of your `testdata` folder in $TMPDIR. The `Abs()` function will return you
 absolute path to `hellowold.txt` file in $TMPDIR.
 
 
-### Get file in tests without go:embed
-
-Another common problem with tests with files is you cannot use `go embed`
-direcly in your test.
+### Using ReadXXXX() functions
 
 You can use hi-level ReadXXXX() functions for loading files as strings, 
 JSONs, YAMLs etc. These functions suppose to not fail. If there is problem 
