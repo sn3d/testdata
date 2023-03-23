@@ -47,16 +47,39 @@ absolute path to `hellowold.txt` file in $TMPDIR.
 Another common problem with tests with files is you cannot use `go embed`
 direcly in your test.
 
-You can use ReadAsXXXX() functions for loading files as string etc. This 
-function suppose to not fail. If there is problem with file, function will 
-give empty string/byte array.
+You can use hi-level ReadXXXX() functions for loading files as strings, 
+JSONs, YAMLs etc. These functions suppose to not fail. If there is problem 
+with file, functions will give you no data.
 
-```
-func Test_HelloWorld(t *testing.T) {
+Example how to read file as string
+```go
+func Test_ReadString(t *testing.T) {
    testdata.Setup()
 
-   var text string = testdata.ReadAsStr("helloworld.txt")
+   var text string = testdata.ReadStr("helloworld.txt")
 
    ...
 }
 ```
+
+Example how to read YAML file into structure:
+```go
+
+type Book struct {
+  Title  string
+  Author string
+  Pages  int
+}
+
+func Test_ReadString(t *testing.T) {
+   testdata.Setup()
+
+   book := Book{}
+   testdata.ReadYAML("book.yaml", &book)
+   ...
+}
+
+```
+
+
+

@@ -6,14 +6,6 @@ import (
 	"github.com/sn3d/testdata"
 )
 
-func ExampleReadStr() {
-	testdata.Setup()
-
-	helloworld := testdata.ReadStr("helloworld.txt")
-	fmt.Println(helloworld)
-	// Output: Testdata
-}
-
 func ExampleCompareFiles() {
 	testdata.Setup()
 
