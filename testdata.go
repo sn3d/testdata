@@ -1,6 +1,7 @@
 package testdata
 
 import (
+	"bytes"
 	"io"
 	"io/ioutil"
 	"os"
@@ -62,26 +63,41 @@ func Pwd() string {
 // testing purposes
 func CompareFiles(a, b string) bool {
 	var err error
-	var aData, bData []byte
 
-	// read 'a'
 	aPath := filepath.Join(tempDir, a)
-	if aData, err = ioutil.ReadFile(aPath); err != nil {
+	aFile, err := os.Open(aPath)
+	if err != nil {
 		return false
 	}
+	defer aFile.Close()
 
-	// read 'b'
 	bPath := filepath.Join(tempDir, b)
-	if bData, err = ioutil.ReadFile(bPath); err != nil {
+	bFile, err := os.Open(bPath)
+	if err != nil {
 		return false
 	}
+	defer bFile.Close()
 
-	// compare a with b
-	if len(aData) != len(bData) {
-		return false
-	}
-	for i, v := range aData {
-		if v != bData[i] {
+	aData := make([]byte, 1024)
+	bData := make([]byte, 1024)
+
+	for {
+		aSize, err1 := aFile.Read(aData)
+		bSize, err2 := bFile.Read(bData)
+
+		if err1 == io.EOF && err2 == io.EOF {
+			break
+		}
+
+		if err1 != nil || err2 != nil {
+			return false
+		}
+
+		if aSize != bSize {
+			return false
+		}
+
+		if !bytes.Equal(aData, bData) {
 			return false
 		}
 	}
@@ -102,7 +118,7 @@ func Read(file ...string) []byte {
 
 // returns you file body as string. If file cannot be read or
 // it doesn't exits, then this function gives you empty string
-func ReadAsStr(file ...string) string {
+func ReadStr(file ...string) string {
 	return string(Read(file...))
 }
 

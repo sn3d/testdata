@@ -6,10 +6,21 @@ import (
 	"github.com/sn3d/testdata"
 )
 
-func ExampleReadAsStr() {
+func ExampleReadStr() {
 	testdata.Setup()
 
-	helloworld := testdata.ReadAsStr("helloworld.txt")
+	helloworld := testdata.ReadStr("helloworld.txt")
 	fmt.Println(helloworld)
 	// Output: Testdata
+}
+
+func ExampleCompareFiles() {
+	testdata.Setup()
+
+	fmt.Println(testdata.CompareFiles("compare/f1.txt", "compare/f2.txt"))
+	fmt.Println(testdata.CompareFiles("compare/f1.txt", "compare/f3.txt"))
+
+	// Output:
+	// true
+	// false
 }
