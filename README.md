@@ -63,23 +63,20 @@ func Test_ReadString(t *testing.T) {
 ```
 
 Example how to read YAML file into structure:
-```go
 
+```go
 type Book struct {
-  Title  string
-  Author string
-  Pages  int
+   Title string `yaml:"title"`
+   Pages int    `yaml:"pages"`
 }
 
 func Test_ReadString(t *testing.T) {
    testdata.Setup()
 
-   book := Book{}
-   testdata.ReadYAML("book.yaml", &book)
+	book := new(Book)
+	testdata.ReadYAML("folder/subfolder/book.yaml", book)
+
    ...
 }
 
 ```
-
-
-
