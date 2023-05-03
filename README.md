@@ -1,17 +1,19 @@
 # Testdata
 
-This little framework helps you deal with `testdata` folder for Go unit tests.
+This little Go library is designed to support file and folder manipulation in 
+unit tests. It enables tests that modify files to be idempotent, meaning 
+they will produce the same result even if run multiple times.
 
-Time to time I need to write unit test that manipulate with some files and folders.
-Good practice is putting all files needed for testing into `testdata` folder. 
 That's fine if you need to read files and you're not modify it. But I have tests,
 they're mutating files. I need some way how to ensure idempotency of tests.
 
-Another common problem with tests with files is you cannot use `go embed`
-direcly in your test. Library offers you `ReadStr()`, `ReadYAML()` and `ReadJSON` 
-functions. You can use them and avoid `go embed` hacking in your tests.
+Another issue that commonly arises when testing with files is that you cannot 
+use 'go embed' directly within your tests. Fortunately, the library provides 
+functions like 'ReadStr()', 'ReadYAML()', and 'ReadJSON()' that you can 
+utilize instead. By using these functions, you can avoid having to resort to 
+any kind of 'go embed' manipulation in your testing.
 
-This framework creates copy of your `testdata` folder in your $TEMPDIR, 
+This library creates copy of your `testdata` folder in your '$TEMPDIR',
 for every test run. 
 
 ## Example
@@ -19,8 +21,9 @@ for every test run.
 
 ### Basic usage
 
-Let's assume we have `helloworld_test.go` and `testdata`, where is `helloworld.txt`. 
-The unit test will load the text from file, append new text and save it. 
+Let's assume we have `helloworld_test.go` and `testdata` folder, where is 
+`helloworld.txt`. The unit test will load the text from file, append new text 
+and save it. 
 
 
 ```go
@@ -42,14 +45,14 @@ func Test_HelloWorld(t *testing.T) {
 ```
 
 The above example is example of idempotent file test. First, the `Setup()` will create
-copy of your `testdata` folder in $TMPDIR. The `Abs()` function will return you
-absolute path to `hellowold.txt` file in $TMPDIR.
+copy of your `testdata` folder in `$TMPDIR`. The `Abs()` function will return 
+absolute path to `hellowold.txt`.
 
 
-### Using ReadXXXX() functions
+### Using Read....() functions
 
-You can use hi-level ReadXXXX() functions for loading files as strings, 
-JSONs, YAMLs etc. These functions suppose to not fail. If there is problem 
+You can use hi-level `ReadStr()`, `ReadYAML()` or `ReadJSON()` functions for 
+loading files. These functions suppose to not fail. If there is problem 
 with file, functions will give you no data.
 
 Example how to read file as string
