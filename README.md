@@ -1,5 +1,7 @@
 # Testdata
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/sn3d/testdata.svg)](https://pkg.go.dev/github.com/sn3d/testdata)
+
 This little Go library is designed to support file and folder manipulation in 
 unit tests. It enables tests that modify files to be idempotent, meaning 
 they will produce the same result even if run multiple times.
