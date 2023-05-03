@@ -1,5 +1,6 @@
 # Testdata
-
+[![Go Report Card](https://goreportcard.com/badge/github.com/sn3d/testdata)](https://goreportcard.com/report/github.com/sn3d/testdata)
+[![codebeat badge](https://codebeat.co/badges/7cad42bc-1ddf-4b7f-ba42-542e848cffba)](https://codebeat.co/projects/github-com-sn3d-testdata-main)
 [![Go Reference](https://pkg.go.dev/badge/github.com/sn3d/testdata.svg)](https://pkg.go.dev/github.com/sn3d/testdata)
 
 This little Go library is designed to support file and folder manipulation in 
