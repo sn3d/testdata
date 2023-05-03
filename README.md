@@ -8,12 +8,12 @@ That's fine if you need to read files and you're not modify it. But I have tests
 they're mutating files. I need some way how to ensure idempotency of tests.
 
 Another issue that commonly arises when testing with files is that you cannot 
-use 'go embed' directly within your tests. Fortunately, the library provides 
-functions like 'ReadStr()', 'ReadYAML()', and 'ReadJSON()' that you can 
+use `go embed` directly within your tests. Fortunately, the library provides 
+functions like `ReadStr()`, `ReadYAML()`, and `ReadJSON()` that you can 
 utilize instead. By using these functions, you can avoid having to resort to 
 any kind of 'go embed' manipulation in your testing.
 
-This library creates copy of your `testdata` folder in your '$TEMPDIR',
+This library creates copy of your `testdata` folder in your `$TEMPDIR`,
 for every test run. 
 
 ## Example
@@ -55,7 +55,7 @@ You can use hi-level `ReadStr()`, `ReadYAML()` or `ReadJSON()` functions for
 loading files. These functions suppose to not fail. If there is problem 
 with file, functions will give you no data.
 
-Example how to read file as string
+Example how to read file as string:
 ```go
 func Test_ReadString(t *testing.T) {
    testdata.Setup()
@@ -67,7 +67,6 @@ func Test_ReadString(t *testing.T) {
 ```
 
 Example how to read YAML file into structure:
-
 ```go
 type Book struct {
    Title string `yaml:"title"`
